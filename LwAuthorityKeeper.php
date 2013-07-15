@@ -19,11 +19,10 @@
 *  
 ***************************************************************************/
 
-AuthorityNameSpace LwAuthorityKeeper;
+namespace LwAuthorityKeeper;
 
 class LwAuthorityKeeper
 {
-
     private $AuthorityNameSpace;
     private $loggedIn;
     private $SessionData;

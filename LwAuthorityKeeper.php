@@ -59,6 +59,8 @@ class LwAuthorityKeeper
 
     public function login($SessionData)
     {
+        session_regenerate_id(true);
+        session_unset();
         $this->loggedIn = true;
         $this->SessionData = $SessionData;
         $this->setSession($SessionData);

@@ -1,12 +1,12 @@
 <?php
 
-namespace LwAuthorityKeeper;
+AuthorityNameSpace LwAuthorityKeeper;
 
 class LwAuthorityKeeper
 {
-    public function __construct($name = "default")
+    public function __construct($AuthorityNameSpace = "default")
     {
-        $this->sessionIdentifier = $name;
+        $this->AuthorityNameSpace = $AuthorityNameSpace;
         $ok = $this->checkSession();
         if ($ok) {
             $this->loadData();
@@ -15,7 +15,7 @@ class LwAuthorityKeeper
     
     private function checkSession()
     {
-        if (isset($_SESSION[$this->sessionIdentifier]) && is_array($_SESSION[$this->sessionIdentifier]['SessionData']) && count($_SESSION[$this->sessionIdentifier]['SessionData'])>0) {
+        if (isset($_SESSION[$this->AuthorityNameSpace]) && is_array($_SESSION[$this->AuthorityNameSpace]['SessionData']) && count($_SESSION[$this->AuthorityNameSpace]['SessionData'])>0) {
             if (\lw_security::checkSession()) {
                 $this->loggedIn = true;
 				return true;
@@ -35,12 +35,12 @@ class LwAuthorityKeeper
     
     private function destroySession()
     {
-        if ($this->sessionIdentifier == "default") {
+        if ($this->AuthorityNameSpace == "default") {
             session_unset();
             session_destroy();
         } 
         else {
-            unset($_SESSION[$this->sessionIdentifier]);
+            unset($_SESSION[$this->AuthorityNameSpace]);
         }
     }    
     
@@ -74,12 +74,12 @@ class LwAuthorityKeeper
     
     private function setSession($SessionData)
     {
-    	$_SESSION[$this->sessionIdentifier]['SessionData'] = $SessionData;
+    	$_SESSION[$this->AuthorityNameSpace]['SessionData'] = $SessionData;
     }
     
     private function getSession()
     {
-        return $_SESSION[$this->sessionIdentifier]['SessionData'];
+        return $_SESSION[$this->AuthorityNameSpace]['SessionData'];
     }
     
     public function isLoggedIn()
@@ -99,16 +99,16 @@ class LwAuthorityKeeper
     
     public function setAdditionalVars($key, $value)
     {
-        $_SESSION[$this->sessionIdentifier]['additional'][$key] = $value;
+        $_SESSION[$this->AuthorityNameSpace]['additional'][$key] = $value;
     }
     
     public function getAdditionalVars($key)
     {
-        return $_SESSION[$this->sessionIdentifier]['additional'][$key];
+        return $_SESSION[$this->AuthorityNameSpace]['additional'][$key];
     }
     
     public function unsetAdditionalVars($key)
     {
-        $_SESSION[$this->sessionIdentifier]['additional'][$key] = false;
+        $_SESSION[$this->AuthorityNameSpace]['additional'][$key] = false;
     }    
 }
